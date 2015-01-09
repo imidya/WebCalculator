@@ -1,5 +1,5 @@
 import pytest
-from Calculator import Calculator
+from calculator import Calculator
 from collections import deque
 
 
@@ -8,23 +8,23 @@ def c():
     return Calculator()
 
 
-def test_process_add(c):
-    result = c.process_add(deque([1, '+', 3]))
+def test_process_add_minus_1(c):
+    result = c.process_add_minus(deque([1, '+', 3]))
     assert result.pop() == 4
 
 
-def test_process_minus(c):
-    result = c.process_minus(deque([3, '-', 1]))
+def test_process_add_minus_2(c):
+    result = c.process_add_minus(deque([3, '-', 1]))
     assert result.pop() == 2
 
 
-def test_process_times(c):
-    result = c.process_times(deque([2, '*', 3]))
+def test_process_times_divided(c):
+    result = c.process_times_divided(deque([2, '*', 3]))
     assert result.pop() == 6
 
 
-def test_process_divided(c):
-    result = c.process_add(deque([9, '/', 3]))
+def test_process_times_divided(c):
+    result = c.process_times_divided(deque([9, '/', 3]))
     assert result.pop() == 3
 
 
@@ -46,7 +46,6 @@ def test_times(c):
 def test_divided(c):
     result = c.cal('100/2/5/2')
     assert result == 5
-
 
 def test_arithmetic(c):
     result = c.cal('100/2/5*2')

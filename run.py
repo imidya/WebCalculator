@@ -12,4 +12,4 @@ def ezCalculator():
 
 
 if __name__ == '__main__':
-    app.run(host='140.124.181.123', port=80)
+    app.run()
