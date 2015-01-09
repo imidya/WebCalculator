@@ -18,7 +18,7 @@ body {
     text-align: right;
 }
 
-#result {
+#result-int {
     width: 100%;
     font-weight: 900;
     font-size: 5em;
@@ -26,7 +26,16 @@ body {
     font-family: 'Open Sans Condensed', sans-serif;
 }
 
+#result-float {
+    width: 100%;
+    font-weight: 900;
+    font-size: 5em;
+    color: #f1c40f;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
 #formula {
+    height: 30px;
     font-weight: 900;
     font-size: 1.5em;
     color: #FFFFFF;
@@ -74,6 +83,7 @@ body {
     font-size: 2.5em;
     font-family: 'Open Sans Condensed', sans-serif;
     height: 140px;
+    transition: background-color 1s linear;
 }
 
 .btn-white :active {
