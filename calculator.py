@@ -1,19 +1,59 @@
-# import web
-from flask import Flask, render_template, request
-
-app = Flask(__name__)
-app.debug = True
-
-@app.route("/login", methods=['GET'])
-def login():
-	if request.method == 'GET':
-		return render_template("login.html")
-
-@app.route("/ezCalculator", methods=['GET'])
-def ezCalculator():
-	if request.method == 'GET':
-		return "This is ezCalculator page"
+import re
+from collections import deque
 
 
-if __name__ == "__main__":
-    app.run()
+class Calculator:
+
+    def process_add(self, input):
+        result = deque()
+        while len(input) > 0:
+            data = input.popleft()
+            if data == '+':
+                tmp = int(result.pop()) + int(input.popleft())
+                result.append(tmp)
+            else:
+                result.append(data)
+        return result
+
+    def process_minus(self, input):
+        result = deque()
+        while len(input) > 0:
+            data = input.popleft()
+            if data == '-':
+                tmp = int(result.pop()) - int(input.popleft())
+                result.append(tmp)
+            else:
+                result.append(data)
+        return result
+
+    def process_times(self, input):
+        result = deque()
+        while len(input) > 0:
+            data = input.popleft()
+            if data == '*':
+                tmp = int(result.pop()) * int(input.popleft())
+                result.append(tmp)
+            else:
+                result.append(data)
+        return result
+
+    def process_divided(self, input):
+        result = deque()
+        while len(input) > 0:
+            data = input.popleft()
+            if data == '/':
+                tmp = int(result.pop()) / int(input.popleft())
+                result.append(tmp)
+            else:
+                result.append(data)
+        return result
+
+    def cal(self, question):
+        data = deque(re.split(r'(\D)', question))
+
+        result = self.process_times(data)
+        result = self.process_divided(result)
+        result = self.process_add(result)
+        result = self.process_minus(result)
+
+        return result.pop()
