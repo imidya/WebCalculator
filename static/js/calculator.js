@@ -44,19 +44,46 @@ $(document).ready(function() {
         enter('9');
     });
     $('#btn-dot').click(function() {
-        enter('.');
+        console.log('->' + formula)
+        if (formula.indexOf('.') <= -1) {
+            enter('.');
+        }
     });
     $('#btn-add').click(function() {
-        enter(' + ');
+        var lastOperator
+        if (formula.length > 3) {
+            lastOperator = formula.substr(formula.length - 3);
+        }
+        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+            enter(' + ');
+        }
     });
     $('#btn-minus').click(function() {
-        enter(' - ');
+        var lastOperator
+        if (formula.length > 3) {
+            lastOperator = formula.substr(formula.length - 3);
+        }
+        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+            enter(' - ');
+        }
     });
     $('#btn-times').click(function() {
-        enter(' x ');
+        var lastOperator
+        if (formula.length > 3) {
+            lastOperator = formula.substr(formula.length - 3);
+        }
+        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+            enter(' x ');
+        }
     });
     $('#btn-divided').click(function() {
-        enter(' ÷ ');
+        var lastOperator
+        if (formula.length > 3) {
+            lastOperator = formula.substr(formula.length - 3);
+        }
+        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+            enter(' ÷ ');
+        }
     });
     $('#btn-equal').click(function() {
         formula = formula.replace('x', '*').replace('÷', '/');
@@ -76,7 +103,7 @@ $(document).ready(function() {
                     $('#result-float').html('.' + resultFloat);
                 }
                 $('#formula').html(formula);
-                formula = '';
+                formula = data.result;
             }
         });
     });
