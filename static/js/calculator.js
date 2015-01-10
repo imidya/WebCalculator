@@ -4,6 +4,7 @@ var formula = '';
 $(document).ready(function() {
 
     var update = function() {
+        $('#result-float').html('');
         $('#result-int').html(formula);
     }
 
@@ -58,6 +59,8 @@ $(document).ready(function() {
         enter(' ÷ ');
     });
     $('#btn-equal').click(function() {
+        formula = formula.replace('x', '*').replace('÷', '/');
+
         $.ajax({
             url: '/cal',
             data: {'formula': formula},
@@ -66,10 +69,11 @@ $(document).ready(function() {
                 if (data.result % 1 === 0) {
                     $('#result-int').html(data.result);
                 } else {
-                    var resultInt = data.result.split('.')[0];
-                    var resultFloat = data.result.split('.')[1];
+                    resultAll = data.result + '';
+                    var resultInt = resultAll.split('.')[0];
+                    var resultFloat = resultAll.split('.')[1];
                     $('#result-int').html(resultInt);
-                    $('#result-float').html(resultFloat);
+                    $('#result-float').html('.' + resultFloat);
                 }
                 $('#formula').html(formula);
                 formula = '';
