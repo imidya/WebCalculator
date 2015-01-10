@@ -6,65 +6,75 @@ $(document).ready(function() {
     var update = function() {
         $('#result-int').html(formula);
     }
+
+    var enter = function(text) {
+        formula += text;
+        update();
+    }
     
     $('#btn-0').click(function() {
-        formula += '0';
-        update();
+        enter('0');
     });
     $('#btn-1').click(function() {
-        formula += '1';
-        update();
+        enter('1');
     });
     $('#btn-2').click(function() {
-        formula += '2';
-        update();
+        enter('2');
     });
     $('#btn-3').click(function() {
-        formula += '3';
-        update();
+        enter('3');
     });
     $('#btn-4').click(function() {
-        formula += '4';
-        update();
+        enter('4');
     });
     $('#btn-5').click(function() {
-        formula += '5';
-        update();
+        enter('5');
     });
     $('#btn-6').click(function() {
-        formula += '6';
-        update();
+        enter('6');
     });
     $('#btn-7').click(function() {
-        formula += '7';
-        update();
+        enter('7');
     });
     $('#btn-8').click(function() {
-        formula += '8';
-        update();
+        enter('8');
     });
     $('#btn-9').click(function() {
-        formula += '9';
-        update();
+        enter('9');
+    });
+    $('#btn-dot').click(function() {
+        enter('.');
     });
     $('#btn-add').click(function() {
-        formula += ' + ';
-        update();
+        enter(' + ');
     });
     $('#btn-minus').click(function() {
-        formula += ' - ';
-        update();
+        enter(' - ');
     });
     $('#btn-times').click(function() {
-        formula += ' × ';
-        update();
+        enter(' x ');
     });
     $('#btn-divided').click(function() {
-        formula += ' ÷ ';
-        update();
+        enter(' ÷ ');
     });
     $('#btn-equal').click(function() {
-        $('#formula').html(formula);
+        $.ajax({
+            url: '/cal',
+            data: {'formula': formula},
+            type: 'POST',
+            success: function(data, message) {
+                if (data.result % 1 === 0) {
+                    $('#result-int').html(data.result);
+                } else {
+                    var resultInt = data.result.split('.')[0];
+                    var resultFloat = data.result.split('.')[1];
+                    $('#result-int').html(resultInt);
+                    $('#result-float').html(resultFloat);
+                }
+                $('#formula').html(formula);
+                formula = '';
+            }
+        });
     });
     $('#btn-clear').click(function() {
         $('#result-int').html('0');

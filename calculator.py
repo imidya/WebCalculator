@@ -33,7 +33,7 @@ class Calculator:
         return result
 
     def cal(self, question):
-        data = deque(re.split(r'([+]|[-]|[/]|[*])', question))
+        data = deque(re.split(r'([+]|[-]|[/]|[*])', question.replace(' ', '')))
 
         result = self.process_times_divided(data)
         result = self.process_add_minus(result)
