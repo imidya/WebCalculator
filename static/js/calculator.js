@@ -1,5 +1,6 @@
 var result = '';
 var formula = '';
+var isNewCalculate = false;
 
 $(document).ready(function() {
 
@@ -12,81 +13,100 @@ $(document).ready(function() {
         formula += text;
         update();
     }
+
+    var checkLastOperator = function() {
+        var lastOperator = '';
+        isNewCalculate = false;
+        if (formula.length > 3) {
+            lastOperator = formula.substr(formula.length - 2);
+        }
+        if (lastOperator.indexOf('+') > -1 ||
+            lastOperator.indexOf('-') > -1 ||
+            lastOperator.indexOf('x') > -1 ||
+            lastOperator.indexOf('÷') > -1) {
+            
+            return true;
+        }
+        return false;
+    }
+
+    var checkNewCalculate = function() {
+        if (isNewCalculate) {
+            formula = '';
+            update();
+            isNewCalculate = false;
+        }
+    }
     
     $('#btn-0').click(function() {
+        checkNewCalculate()
         enter('0');
     });
     $('#btn-1').click(function() {
+        checkNewCalculate()
         enter('1');
     });
     $('#btn-2').click(function() {
+        checkNewCalculate()
         enter('2');
     });
     $('#btn-3').click(function() {
+        checkNewCalculate()
         enter('3');
     });
     $('#btn-4').click(function() {
+        checkNewCalculate()
         enter('4');
     });
     $('#btn-5').click(function() {
+        checkNewCalculate()
         enter('5');
     });
     $('#btn-6').click(function() {
+        checkNewCalculate()
         enter('6');
     });
     $('#btn-7').click(function() {
+        checkNewCalculate()
         enter('7');
     });
     $('#btn-8').click(function() {
+        checkNewCalculate()
         enter('8');
     });
     $('#btn-9').click(function() {
+        checkNewCalculate()
         enter('9');
     });
     $('#btn-dot').click(function() {
-        console.log('->' + formula)
-        if (formula.indexOf('.') <= -1) {
+        var separators = ['\\\+', '-','x', '÷'];
+        var lastNumber = formula.split(new RegExp(separators.join('|'), 'g')).pop();
+        if (lastNumber.indexOf('.') <= -1) {
             enter('.');
         }
     });
     $('#btn-add').click(function() {
-        var lastOperator
-        if (formula.length > 3) {
-            lastOperator = formula.substr(formula.length - 3);
-        }
-        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+        if (!checkLastOperator()) {
             enter(' + ');
         }
     });
     $('#btn-minus').click(function() {
-        var lastOperator
-        if (formula.length > 3) {
-            lastOperator = formula.substr(formula.length - 3);
-        }
-        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+        if (!checkLastOperator()) {
             enter(' - ');
         }
     });
     $('#btn-times').click(function() {
-        var lastOperator
-        if (formula.length > 3) {
-            lastOperator = formula.substr(formula.length - 3);
-        }
-        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+        if (!checkLastOperator()) {
             enter(' x ');
         }
     });
     $('#btn-divided').click(function() {
-        var lastOperator
-        if (formula.length > 3) {
-            lastOperator = formula.substr(formula.length - 3);
-        }
-        if (lastOperator != ' + ' && lastOperator != ' - ' && lastOperator != ' x ' && lastOperator != ' ÷ ') {
+        if (!checkLastOperator()) {
             enter(' ÷ ');
         }
     });
     $('#btn-equal').click(function() {
-        formula = formula.replace('x', '*').replace('÷', '/');
+        formula = formula.replace(/x/g, '*').replace(/\÷/g, '/')
 
         $.ajax({
             url: '/cal',
@@ -104,6 +124,7 @@ $(document).ready(function() {
                 }
                 $('#formula').html(formula);
                 formula = data.result;
+                isNewCalculate = true;
             }
         });
     });
