@@ -1,4 +1,3 @@
-# import web
 from flask import Flask, render_template, request, jsonify
 from Calculator import Calculator
 
