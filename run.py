@@ -1,6 +1,6 @@
 # import web
 from flask import Flask, render_template, request, jsonify
-from calculator import Calculator
+from Calculator import Calculator
 
 app = Flask(__name__)
 app.debug = True

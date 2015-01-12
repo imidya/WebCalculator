@@ -106,27 +106,29 @@ $(document).ready(function() {
         }
     });
     $('#btn-equal').click(function() {
-        formula = formula.replace(/x/g, '*').replace(/\÷/g, '/')
+        if (!checkLastOperator()) {
+            formula = formula.replace(/x/g, '*').replace(/\÷/g, '/')
 
-        $.ajax({
-            url: '/cal',
-            data: {'formula': formula},
-            type: 'POST',
-            success: function(data, message) {
-                if (data.result % 1 === 0) {
-                    $('#result-int').html(data.result);
-                } else {
-                    resultAll = data.result + '';
-                    var resultInt = resultAll.split('.')[0];
-                    var resultFloat = resultAll.split('.')[1];
-                    $('#result-int').html(resultInt);
-                    $('#result-float').html('.' + resultFloat);
+            $.ajax({
+                url: '/cal',
+                data: {'formula': formula},
+                type: 'POST',
+                success: function(data, message) {
+                    if (data.result % 1 === 0) {
+                        $('#result-int').html(data.result);
+                    } else {
+                        resultAll = data.result + '';
+                        var resultInt = resultAll.split('.')[0];
+                        var resultFloat = resultAll.split('.')[1];
+                        $('#result-int').html(resultInt);
+                        $('#result-float').html('.' + resultFloat);
+                    }
+                    $('#formula').html(formula);
+                    formula = data.result;
+                    isNewCalculate = true;
                 }
-                $('#formula').html(formula);
-                formula = data.result;
-                isNewCalculate = true;
-            }
-        });
+            });
+        }
     });
     $('#btn-clear').click(function() {
         $('#result-int').html('0');
