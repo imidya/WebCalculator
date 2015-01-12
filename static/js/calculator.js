@@ -106,29 +106,35 @@ $(document).ready(function() {
         }
     });
     $('#btn-equal').click(function() {
-        if (!checkLastOperator()) {
-            formula = formula.replace(/x/g, '*').replace(/\÷/g, '/')
+        formula = formula.replace(/x/g, '*').replace(/\÷/g, '/');
+        var resultAll;
 
-            $.ajax({
-                url: '/cal',
-                data: {'formula': formula},
-                type: 'POST',
-                success: function(data, message) {
-                    if (data.result % 1 === 0) {
-                        $('#result-int').html(data.result);
-                    } else {
-                        resultAll = data.result + '';
-                        var resultInt = resultAll.split('.')[0];
-                        var resultFloat = resultAll.split('.')[1];
-                        $('#result-int').html(resultInt);
-                        $('#result-float').html('.' + resultFloat);
-                    }
-                    $('#formula').html(formula);
-                    formula = data.result;
-                    isNewCalculate = true;
+        $.ajax({
+            url: '/cal',
+            data: {'formula': formula},
+            type: 'POST',
+            success: function(data, message) {
+                resultAll = data.result;
+                if (resultAll % 1 === 0) {
+                    $('#result-int').html(resultAll);
+                } else {
+                    resultAll = resultAll.toFixed(3);
+                    var resultInt = resultAll.split('.')[0];
+                    var resultFloat = resultAll.split('.')[1];
+                    $('#result-int').html(resultInt);
+                    $('#result-float').html('.' + resultFloat);
                 }
-            });
-        }
+                $('#formula').html(formula);
+                formula = resultAll;
+                isNewCalculate = true;
+            }
+        });
+    });
+    $('#btn-LParenthesis').click(function() {
+        enter('(');
+    });
+    $('#btn-RParenthesis').click(function() {
+        enter(')');
     });
     $('#btn-clear').click(function() {
         $('#result-int').html('0');
@@ -136,5 +142,9 @@ $(document).ready(function() {
         $('#formula').html('');
         formula = '';
         result = '';
+    });
+    $('#btn-back').click(function() {
+        formula = formula.substring(0, formula.length - 1);
+        update();
     });
 });

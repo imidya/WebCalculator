@@ -16,6 +16,7 @@ body {
     background-color: #22C9E2;
     padding: 15px 10px 15px 10px;
     text-align: right;
+    height: 160px;
 }
 
 #result-int {
