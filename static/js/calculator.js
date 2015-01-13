@@ -106,7 +106,7 @@ $(document).ready(function() {
         }
     });
     $('#btn-equal').click(function() {
-        formula = formula.replace(/x/g, '*').replace(/\÷/g, '/');
+        formula = formula.replace(/x/g, '*').replace(/\÷/g, '/').replace(/\(/g, '(').replace(/\)/g, ')');
         var resultAll;
 
         $.ajax({

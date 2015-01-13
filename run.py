@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from Calculator import Calculator
+from Calculator import Calculator, Calculator2
 
 app = Flask(__name__)
 app.debug = True
@@ -16,7 +16,7 @@ def cal():
     if request.method == 'POST':
         formula = request.form.get('formula')
         if formula is not None:
-            c = Calculator()
+            c = Calculator2()
             result = c.cal(formula)
             return jsonify({'result': result, 'msg': 'ok'})
         else:
