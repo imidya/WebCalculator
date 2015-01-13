@@ -40,29 +40,34 @@ class Calculator:
 
         return result.pop()
 
+
 class Calculator2:
+
     def parseString(self, formula):
         stack = ['$']
         output = []
-        formula = filter(lambda a: a!='', formula)
+        formula = filter(lambda a: a != '', formula)
 
         for token in formula:
             token = str(token)
             if token in ['+', '-', '*', '/', '(', ')']:
                 operator_last = stack.pop()
-                
-                if self.operator_priority(token, operator_last) == True:
+
+                if self.operator_priority(token, operator_last) is True:
                     stack.append(operator_last)
                     stack.append(token)
                 else:
                     output.append(operator_last)
                     operator_last = stack.pop()
-                    while (self.operator_priority(token, operator_last) == False):
+                    while (self.operator_priority(token,
+                                                  operator_last) is False):
                         output.append(operator_last)
                         operator_last = stack.pop()
                         if operator_last == '(' and token == ')':
                             break
-                    if operator_last == '$' or self.operator_priority(token, operator_last) == True:
+                    if operator_last == '$' or\
+                            self.operator_priority(token,
+                                                   operator_last) is True:
                         stack.append(operator_last)
                         stack.append(token)
             else:
@@ -71,20 +76,20 @@ class Calculator2:
         while (len(stack) > 1):
             output.append(stack.pop())
 
-        output = filter(lambda a: a!='(', output)
-        output = filter(lambda a: a!=')', output)
+        output = filter(lambda a: a != '(', output)
+        output = filter(lambda a: a != ')', output)
         return output
 
     def operator_priority(self, operator_now, operator_last):
-        priority = {'(' : 1, ')' : 4, '*' : 2, '/' : 2, '+' : 3, '-' : 3, '$' : 4}
-        # print 'operator_last = ' + operator_last + '; token = ' + operator_now
+        priority = {'(': 1, ')': 4, '*': 2, '/': 2, '+': 3, '-': 3, '$': 4}
+        # print 'operator_last = ' + operator_last + '; token = ' +
+        # operator_now
         if operator_last is '(':
             return True
         if priority[operator_now] < priority[operator_last]:
             return True
         else:
             return False
-
 
     def plus(self, number1, number2):
         return float(number1) + float(number2)
@@ -100,7 +105,8 @@ class Calculator2:
 
     def cal(self, formula):
         formula = formula.encode('utf8')
-        formula = re.split(r'([+]|[-]|[/]|[*]|[(]|[)])', formula.replace(' ', ''))
+        formula = re.split(
+            r'([+]|[-]|[/]|[*]|[(]|[)])', formula.replace(' ', ''))
         post_order = self.parseString(formula)
         post_order.reverse()
         temp = []
@@ -131,6 +137,3 @@ class Calculator2:
                 temp.append(result)
 
         return float(temp[0])
-
-# c = Calculator2()
-# c.cal('(8 * 6)')
