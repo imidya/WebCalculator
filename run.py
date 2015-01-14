@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from Calculator import Calculator, Calculator2
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 
 
 @app.route('/', methods=['GET'])
