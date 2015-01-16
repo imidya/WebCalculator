@@ -126,6 +126,10 @@ body {
 #title-panel {
     -webkit-transform-origin: left top;
     -webkit-transform:rotate(270deg);
+    -moz-transform-origin: left top;
+    -moz-transform:rotate(270deg);
+    transform-origin: left top;
+    transform:rotate(270deg);
 }
 
 #title {

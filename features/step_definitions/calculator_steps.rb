@@ -3,21 +3,42 @@ require 'colorize'
 
 browser = nil
 
+
+def input_click(browser, formula)
+    input = Array.new
+    formula = formula.gsub(' ','')
+    input = formula.split('')
+
+    for i in input
+        if i === '+'
+            browser.div(:id, 'btn-add').click
+        elsif i === '-'
+            browser.div(:id, 'btn-minus').click
+        elsif i === 'x' 
+            browser.div(:id, 'btn-times').click
+        elsif i === '/'
+            browser.div(:id, 'btn-divided').click
+        elsif i === '('
+            browser.div(:id, 'btn-LParenthesis').click
+        elsif i === ')'
+            browser.div(:id, 'btn-RParenthesis').click
+        else
+            browser.div(:id, 'btn-' + i).click
+        end
+        sleep(1.0)
+    end
+
+    browser.div(:id, 'btn-equal').click
+end
+
 Given(/^A web calculator$/) do
     browser = Watir::Browser.new
     browser.goto 'http://127.0.0.1:5000'
     browser.send_keys :f11
 end
 
-When(/^enter (\d+) \+ (\d+)$/) do |arg1, arg2|
-    browser.div(:id, 'btn-' + arg1).click
-    sleep(1)
-    browser.div(:id, 'btn-add').click
-    sleep(1)
-    browser.div(:id, 'btn-' + arg2).click
-    sleep(1)
-    browser.div(:id, 'btn-equal').click
-    sleep(1)
+When(/^enter "(.*?)"$/) do |arg1|
+    input_click(browser, arg1)
 end
 
 Then(/^get the result is (\d+)$/) do |arg1|
@@ -25,69 +46,3 @@ Then(/^get the result is (\d+)$/) do |arg1|
     expect(result_int).to eq arg1
     browser.close
 end
-
-When(/^enter (\d+) x (\d+)$/) do |arg1, arg2|
-    browser.div(:id, 'btn-' + arg1).click
-    sleep(1)
-    browser.div(:id, 'btn-times').click
-    sleep(1)
-    browser.div(:id, 'btn-' + arg2).click
-    sleep(1)
-    browser.div(:id, 'btn-equal').click
-    sleep(1)
-end
-
-When(/^enter (\d+) \+ (\d+) x (\d+) \- (\d+) \/ (\d+)$/) do |arg1, arg2, arg3, arg4, arg5|
-    browser.div(:id, 'btn-' + arg1).click
-    sleep(1)
-    browser.div(:id, 'btn-add').click
-    sleep(1)
-    browser.div(:id, 'btn-' + arg2).click
-    sleep(1)
-    browser.div(:id, 'btn-times').click
-    sleep(1)
-    browser.div(:id, 'btn-' + arg3).click
-    sleep(1)
-    browser.div(:id, 'btn-minus').click
-    sleep(1)
-    browser.div(:id, 'btn-' + arg4).click
-    sleep(1)
-    browser.div(:id, 'btn-divided').click
-    sleep(1)
-    browser.div(:id, 'btn-' + arg5).click
-    sleep(1)
-    browser.div(:id, 'btn-equal').click
-    sleep(1)
-end
-
-
-# Given(/^A web calculator again$/) do
-#     browser = Watir::Browser.new    
-#     browser.goto 'http://127.0.0.1:5000'
-#     browser.send_keys :f11
-# end
-
-# When(/^enter <augend> \+ <addend>$/) do |table|
-#     table.hashes.each do |record|
-#         record[:augend].split('') do |char|
-#             browser.div(:id, 'btn-' + char).click
-#             sleep(1)
-#         end
-        
-#         browser.div(:id, 'btn-add').click
-#         sleep(1)
-
-#         record[:addend].split('') do |char|
-#             browser.div(:id, 'btn-' + char).click
-#             sleep(1)
-#         end
-
-#         browser.div(:id, 'btn-equal').click
-#         sleep(1)
-#     end
-# end
-
-# Then(/^get the sum is <sum>$/) do |table|
-#     expect(browser.span(:id => 'result-int').text).to eq table.hashes()[0][:sum]
-#     browser.close
-# end

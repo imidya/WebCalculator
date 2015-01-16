@@ -5,27 +5,21 @@ Feature: Calculator Functions
 
 	Scenario: Add function
     	Given A web calculator
-    	When enter 1 + 2
+    	When enter "1 + 2"
     	Then get the result is 3
 
     Scenario: Times funciton
         Given A web calculator
-        When enter 5 x 2
+        When enter "5 x 2"
         Then get the result is 10
 
     Scenario: Times funciton
         Given A web calculator
-        When enter 5 + 4 x 3 - 9 / 3
+        When enter "5 + 4 x 3 - 9 / 3"
         Then get the result is 14
 
-    # Scenario: Test basic plus formula and some questions
-    # Given A web calculator again
-    # When enter <augend> + <addend>
-    #     | augend | addend |
-    #     |  8     |  4     |
-    #     |  5     |  9     |
-
-    # Then get the sum is <sum>
-    #     | sum |
-    #     |  14 |
+    Scenario: Test basic plus formula and some questions
+        Given A web calculator
+        When enter "(5 + 4) x 3 - 9 / 3"
+        Then get the result is 24
 
