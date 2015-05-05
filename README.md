@@ -15,50 +15,50 @@ Feature files are put in the "features" folder and step files are in the "featur
 1. You need install Python and Ruby first.
 2. Change driectory.
 
-        ```
-        $ cd WebCalculator
-        ```
+```
+$ cd WebCalculator
+```
 
 3. Install Python required packages.
 
-        ```
-        $ pip install -r requirements.txt
-        ```
+```
+$ pip install -r requirements.txt
+```
 
 4. Install Cucumber.
 
-        ```
-        $ gem install cucumber
-        ```
+```
+$ gem install cucumber
+```
 
 5. Install Watir web driver.
 
-        ```
-        $ gem install watir
-        ```
+```
+$ gem install watir
+```
 
 6. Install Rspec.
 
-        ```
-        $ gem install rspec
-        ```
+```
+$ gem install rspec
+```
 
 7. Try to run the unit tests. It should all pass.
 
-        ```
-        $ py.test CalculatorTest.py
-        ```
+```
+$ py.test CalculatorTest.py
+```
 
 8. Run web app. The app will run on 127.0.0.1:5000
 
-        ```
-        $ python run.py
-        ```
+```
+$ python run.py
+```
 
 9. Run Cucumber.
 
-        ```
-        $ cucumber features/calculator.feature
-        ```
+```
+$ cucumber features/calculator.feature
+```
 
 10. You done!
