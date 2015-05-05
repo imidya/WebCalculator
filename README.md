@@ -12,37 +12,37 @@ Feature files are put in the "features" folder and step files are in the "featur
 ### Screenshot
 ![Screenshot](https://raw.githubusercontent.com/imidya/WebCalculator/master/static/img/screenshot.png)
 ### Installation
-1. You need install Python and Ruby first.
-2. Change driectory.
-    ```sh
-    $ cd WebCalculator
-    ```
-3. Install Python required packages.
-    ```sh
-    $ pip install -r requirements.txt
-    ```
-4. Install Cucumber.
-    ```sh
-    $ gem install cucumber
-    ```
-5. Install Watir web driver.
-    ```sh
-    $ gem install watir
-    ```
-6. Install Rspec.
-    ```sh
-    $ gem install rspec
-    ```
-7. Try to run the unit tests. It should all pass.
-    ```sh
-    $ py.test CalculatorTest.py
-    ```
-8. Run web app. The app will run on 127.0.0.1:5000
-    ```sh
-    $ python run.py
-    ```
-9. Run Cucumber.
-    ```sh
-    $ cucumber features/calculator.feature
-    ```
-10. You done!
+- You need install Python and Ruby first.
+- Change driectory.
+```sh
+$ cd WebCalculator
+```
+- Install Python required packages.
+```sh
+$ pip install -r requirements.txt
+```
+- Install Cucumber.
+```sh
+$ gem install cucumber
+```
+- Install Watir web driver.
+```sh
+$ gem install watir
+```
+- Install Rspec.
+```sh
+$ gem install rspec
+```
+- Try to run the unit tests. It should all pass.
+```sh
+$ py.test CalculatorTest.py
+```
+- Run web app. The app will run on 127.0.0.1:5000
+```sh
+$ python run.py
+```
+- Run Cucumber.
+```sh
+$ cucumber features/calculator.feature
+```
+- You done!
