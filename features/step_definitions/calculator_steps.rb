@@ -10,24 +10,24 @@ def input_click(browser, formula)
 
     for i in input
         if i === '+'
-            browser.div(:id, 'btn-add').click
+            browser.div({id: 'btn-add'}).click
         elsif i === '-'
-            browser.div(:id, 'btn-minus').click
+            browser.div({id: 'btn-minus'}).click
         elsif i === 'x' 
-            browser.div(:id, 'btn-times').click
+            browser.div({id: 'btn-times'}).click
         elsif i === '/'
-            browser.div(:id, 'btn-divided').click
+            browser.div({id: 'btn-divided'}).click
         elsif i === '('
-            browser.div(:id, 'btn-LParenthesis').click
+            browser.div({id: 'btn-LParenthesis'}).click
         elsif i === ')'
-            browser.div(:id, 'btn-RParenthesis').click
+            browser.div({id: 'btn-RParenthesis'}).click
         else
-            browser.div(:id, 'btn-' + i).click
+            browser.div({id: 'btn-' + i}).click
         end
         sleep(1.0)
     end
 
-    browser.div(:id, 'btn-equal').click
+    browser.div({id: 'btn-equal'}).click
 end
 
 Given(/^A web calculator$/) do
@@ -42,6 +42,6 @@ end
 
 Then(/^get the result is (\d+)$/) do |arg1|
     result_int = browser.span(:id => 'result-int').text
-    expect(result_int).to eq arg1
+    expect(result_int).to eq arg1.to_s
     browser.close
 end
